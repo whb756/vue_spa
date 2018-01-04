@@ -4,7 +4,12 @@ import Vue from 'vue'
 import App from '@/App'
 import router from '@/router'
 import '@/tools/rem' //設置html的font-size
+import MintUI from 'mint-ui'//引入mint-ui
+import { InfiniteScroll } from 'mint-ui';
+import 'mint-ui/lib/style.css'
 
+Vue.use(MintUI)
+Vue.use(InfiniteScroll)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,19 +1,28 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-
-    
-    <h2>Essential Links</h2>
+  <div class="bottomBar">
+   <Tabbar>
+     <TabItem>外卖</TabItem>
+     <TabItem>订单</TabItem>
+     <TabItem>发现</TabItem>
+     <TabItem>我的</TabItem>
+   </Tabbar>
   </div>
 </template>
 
 <script>
+import { Tabbar, TabItem } from 'mint-ui'
 export default {
-  name: 'HelloWorld',
+  name: 'bottomBar',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+      
     }
+  },
+  components:{
+    Header,
+    Tabbar, 
+    TabItem
   }
 }
 </script>
