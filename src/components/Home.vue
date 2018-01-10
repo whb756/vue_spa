@@ -4,13 +4,28 @@
 		<Swipe :msgs="msg"></Swipe>
 		<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" ref="loadmore">
 		<ul  v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
-		<li v-for="item in list">{{ item }}</li>
+		<li v-for="(item,index) in items">
+			<h3 :title="置顶" class="title">{{item.title}}</h3>
+			<div id="content">
+				<img :src="item.author.avatar_url"/>
+				<div class="info">
+				<span class="name">{{item.author.loginname}}</span>
+				<sapn class="status"> 
+					<b>{{item.reply_count}}</b>
+                     /{{item.visit_count}}
+				</sapn>
+				</div>
+			</div>
+		</li>
 		</ul>
 		 <div slot="top" class="mint-loadmore-top">
-      <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
-      <span v-show="topStatus === 'loading'">加载中。。。。</span>
-    </div>
+      	<span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+      	<span v-show="topStatus === 'loading'">加载中。。。。</span>
+    	</div>
 		</mt-loadmore>
+		<!-- <ul>
+			<li v-for="a in items">{{a.title}}</li>
+		</ul> -->
 	</div>
 </template>
 
@@ -25,6 +40,7 @@ export default {
 		return {
 			msg: 'Welcome to Your Vue.js App',
 			list:[1,2,3,4,5],
+			items:[],
 			 topStatus: ''
 		}
 	},
@@ -66,24 +82,28 @@ export default {
 	}
 	},
 	mounted () {
-		axios.get('http://localhost:3000/').then((res)=>{
-			console.log('数据3000:',res.data)
-		})
+		// axios.get('http://localhost:3000/').then((res)=>{
+		// 	console.log('数据3000:',res.data)
+		// })
 
-		if(localStorage.name && JSON.parse(localStorage.name).name == '冰花'){
-			alert('冰花登陆了')
-			return
-		}
-		axios.get('https://www.miguatech.com/service/interface/getLastGroupPurchase.do?pageNo=0&lat=&lon=')
+		// if(localStorage.name && JSON.parse(localStorage.name).name == '冰花'){
+		// 	alert('冰花登陆了')
+		// 	return
+		// }
+		
+		axios.get('https://cnodejs.org/api/v1/topics')
 		.then((res)=>{
-			console.log('数据:',res.data)
+			let result=res.data
+			this.items=result.data
+	
+			console.log('数据:',res.data.data)
 			if(res.data.resultCode == 0){
 				var obj = {
 					name:'冰花'
 				}
 				window.localStorage.setItem('name',JSON.stringify(obj))
 			}
-		})
+		});
 		navigator.geolocation.getCurrentPosition(function(position){
 			console.log('定位：',position)
 		})
@@ -95,13 +115,37 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .home li{
-	height: 50px;
-	line-height: 50px;
+	/* height: 50px; */
+	/* line-height: 30px; */
 	border-top:1px solid blanchedalmond;
 }
 .Swipe{
 	margin-top: 5px;
 }
-
-
+.title{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	font-size: 16px;
+	margin-left: 10px;
+	overflow: hidden;
+}
+#content{
+	
+	padding-top: 10px;
+	display: flex;
+}
+#content img{
+	border-radius: 50%;
+	margin-right: 10px;
+	border: 1px solid black;
+	width: 40px;
+	height: 40px;
+}
+.info{
+display: flex;
+width: 100%;
+}
+.info span{
+	flex: 1;
+}
 </style>
