@@ -25,11 +25,11 @@ export default {
     msg:'发现页',
     list:[
       {
-        name:'拍照',
+        name:'拍照123',
         method:this.getCamera
       },
       {
-        name:'点击打开相册我问问',
+        name:'点击打开相册',
         method:this.getLibrary
       }
     ],
