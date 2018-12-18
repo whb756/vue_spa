@@ -29,7 +29,7 @@ export default {
         method:this.getCamera
       },
       {
-        name:'点击打开相册23',
+        name:'点击打开相册675',
         method:this.getLibrary
       }
     ],
