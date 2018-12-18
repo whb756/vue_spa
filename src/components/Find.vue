@@ -25,7 +25,7 @@ export default {
     msg:'发现页',
     list:[
       {
-        name:'拍照',
+        name:'拍照123',
         method:this.getCamera
       },
       {
